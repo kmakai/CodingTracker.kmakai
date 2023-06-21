@@ -1,14 +1,14 @@
 ﻿using CodingTracker.kmakai.Data;
 using CodingTracker.kmakai.Models;
 using ConsoleTableExt;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CodingTracker.kmakai.Controllers;
 
 public class CodeSessionController
 {
     private readonly DbContext DbContext;
-    private List<CodeSession> CodeSessions = new();
+    private readonly ViewController ViewController = new();
+    public List<CodeSession> CodeSessions = new();
 
     public CodeSessionController(DbContext dbContext)
     {
@@ -30,10 +30,14 @@ public class CodeSessionController
         };
 
         DbContext.Add(codeSession);
+        codeSession.Id = DbContext.GetLastId();
         CodeSessions.Add(codeSession);
     }
     public void UpdateSession()
     {
+        Console.Clear();
+        ViewController.ViewSessions(CodeSessions);
+        Console.WriteLine("Enter the id of the session you want to update: ");
         var id = InputController.GetIdInput();
         var codeSession = CodeSessions.FirstOrDefault(x => x.Id == id);
 
@@ -42,6 +46,9 @@ public class CodeSessionController
             Console.WriteLine("Session not found.");
             return;
         }
+
+        Console.WriteLine("Session to be edited");
+        ViewController.ViewSession(codeSession);
 
         string? Date = InputController.GetDateInput();
         string StartTime = InputController.GetStartTimeInput();
@@ -56,14 +63,10 @@ public class CodeSessionController
 
     public void DeleteSession()
     {
+        ViewController.ViewSessions(CodeSessions);
+        Console.WriteLine("Enter the id of the session you want to delete: ");
         var id = InputController.GetIdInput();
         DbContext.Delete(id);
         CodeSessions.RemoveAll(x => x.Id == id);
     }
-
-    public void ViewSessions()
-    {
-        ConsoleTableBuilder.From(CodeSessions).ExportAndWriteLine();
-    }
-
 }

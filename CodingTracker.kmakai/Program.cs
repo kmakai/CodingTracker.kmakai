@@ -1,7 +1,4 @@
-﻿using CodingTracker.kmakai.Controllers;
-using CodingTracker.kmakai.Data;
+﻿using CodingTracker.kmakai;
 
-CodeSessionController codeSessionController = new(new DbContext());
-codeSessionController.ViewSessions();
-//codeSessionController.UpdateSession();
-codeSessionController.DeleteSession();
+Tracker tracker = new();
+tracker.Start();

@@ -162,4 +162,29 @@ public class DbContext
         }
     }
 
+    public int GetLastId()
+    {
+        using (var connection = new SQLiteConnection(ConnectionString))
+        {
+            connection.Open();
+            var command = connection.CreateCommand();
+            command.CommandText = @$"
+                SELECT Id
+                FROM CodeSessions
+                ORDER BY Id DESC
+                LIMIT 1;
+            ";
+
+            var reader = command.ExecuteReader();
+            var id = 0;
+            while (reader.Read())
+            {
+                id = reader.GetInt32(0);
+            }
+
+            connection.Close();
+            return id;
+        }
+    }
+
 }

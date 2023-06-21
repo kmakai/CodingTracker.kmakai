@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CodingTracker.kmakai.Controllers;
+﻿namespace CodingTracker.kmakai.Controllers;
 
 public class InputController
 {
@@ -54,7 +48,7 @@ public class InputController
 
     static public int GetIdInput()
     {
-        Console.WriteLine("Enter id: ");
+        Console.Write("Id: ");
         int id;
         while (!int.TryParse(Console.ReadLine(), out id))
         {
@@ -62,6 +56,18 @@ public class InputController
         }
 
         return id;
+    }
+
+    static public int GetMainMenuInput()
+    {
+        Console.WriteLine("Enter your choice: ");
+        int input;
+        while (!int.TryParse(Console.ReadLine(), out input))
+        {
+            Console.WriteLine("Invalid input. Try again: ");
+        }
+
+        return input;
     }
 }
 

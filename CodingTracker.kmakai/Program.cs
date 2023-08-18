@@ -1,4 +1,7 @@
-﻿using CodingTracker.kmakai;
+﻿//using CodingTracker.kmakai;
+//Tracker tracker = new();
+//tracker.Start();
 
-Tracker tracker = new();
-tracker.Start();
+using CodingTracker.kmakai.Controllers;
+
+var date = InputController.GetDateInput();

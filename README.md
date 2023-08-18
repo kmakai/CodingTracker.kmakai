@@ -12,3 +12,5 @@ Create a console app that lets you track time spend coding. The app will record 
 - [x] User cannot input session duration. Must be calculated
 - [x] User should be able to input start and end times
 - [x] Cannot use anonymous objects, must use a list of CodingSession
+
+challenges were not completed.

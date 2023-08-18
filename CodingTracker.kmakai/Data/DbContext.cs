@@ -7,8 +7,8 @@ namespace CodingTracker.kmakai.Data;
 
 public class DbContext
 {
-    public string? ConnectionString = null;
-    public string? DbPath = null;
+    public string? ConnectionString;
+    public string? DbPath;
 
     public DbContext()
     {

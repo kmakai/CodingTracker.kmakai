@@ -5,25 +5,38 @@ public class InputController
     static public string GetDateInput()
     {
         Console.WriteLine("Enter date (yyyy-mm-dd): ");
-        DateOnly date;
-        while (!DateOnly.TryParse(Console.ReadLine(), out date))
+        string? date = Console.ReadLine();
+        while (!string.IsNullOrEmpty(date) && !IsDateValid(date))
         {
             Console.WriteLine("Invalid date format. Try again (yyyy-mm-dd): ");
+            date = Console.ReadLine();
         }
 
-        return date.ToString("yyyy-MM-dd");
+        return date;
+    }
+
+    public static bool IsDateValid(string date)
+    {
+        Console.WriteLine(DateOnly.TryParse(date, out _));
+        return DateOnly.TryParse(date, out _);
     }
 
     static public string GetStartTimeInput()
     {
         Console.WriteLine("Enter Start time (hh:mm) this is in 24hrs formatt: ");
-        TimeOnly time;
-        while (!TimeOnly.TryParse(Console.ReadLine(), out time))
+        string time = Console.ReadLine(); 
+        while (!IsTimeValid(time))
         {
             Console.WriteLine("Invalid time format. Try again (hh:mm) this is in 24hrs format: ");
+            time = Console.ReadLine();
         }
 
-        return time.ToString("hh\\:mm");
+        return time;
+    }
+
+    public static bool IsTimeValid(string time)
+    {
+        return TimeOnly.TryParse(time, out _);
     }
 
     static public string GetEndTimeInput(string startTime)
@@ -35,8 +48,6 @@ public class InputController
             Console.WriteLine("Invalid time format. Try again (hh:mm) this is in 24hrs format: ");
         }
 
-        var duration = time - TimeOnly.Parse(startTime);
-       
         if(Convert.ToDateTime(time.ToString("hh\\:mm")) <= Convert.ToDateTime(startTime))
         {
             Console.WriteLine("End time must be greater than start time. Try again (hh:mm) this is in 24hrs format: ");
